@@ -1054,6 +1054,45 @@ header
     border-bottom: 1px solid white;
     word-spacing:5px;
 }
+.mood-box {
+    background-color: #121212;
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 40px auto; /* adds space around the box */
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    z-index: 1;
+    position: relative;
+  }
+  
+  
+  .mood-box select, .mood-box button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+  }
+  
+  .mood-box select {
+    background-color: #333;
+    color: white;
+  }
+  
+  .mood-box button {
+    background-color: #1DB954;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  #mood-results {
+    margin-top: 20px;
+  }
+  
     </style>
     <body>
         <!-- header Section -->
@@ -1062,7 +1101,7 @@ header
                 <div class="header-mid-left">
                     <div class="logo-div">
                         <a href="#">
-                            <img src="images/new-logo.png"/>
+                            <img src="new-logo.png"/>
                         </a>
                         <span>Spotify</span>
                     </div>
@@ -1125,6 +1164,7 @@ header
                             <a href="login.html" target="_blank"><button>Log in</button></a>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
          </header>
@@ -1172,12 +1212,15 @@ header
                     <div class="content-menu">
                         <h5>Accessibility</h5>
                     </div>
+                    <div class="content-menu">
+                        <h5>Spotify-Clone | Built for hackathon</h5>
+                    </div>
                     <div class="content-menu cookies">
                         <h6>Cookies</h6>
                     </div>
                     <div class="content-menu">
                         <button><i class="fa-solid fa-globe"></i>English</button>
-                    </div>
+                    </div>                   
                 </div>      
             </div>
             <div class="showList">
@@ -1609,6 +1652,21 @@ header
                         </div>
                     </div>
                 </div>
+                <section id="mood-generator" class="mood-box">
+                    <h2>🎭 Generate Your Mood Playlist</h2>
+                    <p>Select your mood and let the music flow!</p>
+                    <select id="mood-select">
+                      <option value="">-- Choose a Mood --</option>
+                      <option value="happy">😊 Happy</option>
+                      <option value="sad">😢 Sad</option>
+                      <option value="workout">🏋️ Workout</option>
+                      <option value="chill">🧘 Chill</option>
+                      <option value="romantic">❤️ Romantic</option>
+                    </select>
+                    <button onclick="generateMoodPlaylist()">Generate</button>
+                    <div id="mood-results"></div>
+                  </section>
+                  
     
                 <div class="show-list-footer">
                     <div class="show-list-footer-child-1">
@@ -1676,7 +1734,7 @@ header
             <div class="main-div">
                 <div class="sign-up">
                     <div class="logo">
-                        <img src="images/new-logo.png"/>
+                        <img src="new-logo.png"/>
                     </div>
                     <div class="heading">
                         <h2>Log in to Spotify</h2>
@@ -1718,7 +1776,7 @@ header
             <div class="main-div">
                 <div class="sign-up">
                     <div class="logo">
-                        <img src="images/new-logo.png"/>
+                        <img src="new-logo.png"/>
                     </div>
                     <div class="heading">
                         <h2>Sign Up to</h2>
@@ -1777,5 +1835,23 @@ header
                   btn.classList.remove("fa-eye")
               }
             }
-          </script>
+                function generateMoodPlaylist() {
+                  const mood = document.getElementById("mood-select").value;
+                  const resultBox = document.getElementById("mood-results");
+              
+                  const playlists = {
+                    happy: ["Happy - Pharrell", "Can't Stop The Feeling - JT", "Good as Hell - Lizzo"],
+                    sad: ["Someone Like You - Adele", "Let Her Go - Passenger", "Fix You - Coldplay"],
+                    workout: ["Stronger - Kanye", "Till I Collapse - Eminem", "Eye of the Tiger - Survivor"],
+                    chill: ["Sunflower - Post Malone", "Lo-fi Beats", "Sunday Best - Surfaces"],
+                    romantic: ["Perfect - Ed Sheeran", "All of Me - John Legend", "Thinking Out Loud - Ed"]
+                  };
+              
+                  if (mood && playlists[mood]) {
+                    resultBox.innerHTML = "<ul>" + playlists[mood].map(song => `<li>${song}</li>`).join('') + "</ul>";
+                  } else {
+                    resultBox.innerHTML = "<p>Please select a mood first 🎧</p>";
+                  }
+                }
+              </script>
 </html>
