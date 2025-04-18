@@ -1112,16 +1112,21 @@ header
                         <span>Home</span>
                     </div>
                     <div class="search">
-                        <form>
+                        <form onsubmit="event.preventDefault();">
+                            >
                             <button type="submit" title="Search">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
-                            <input type="text" placeholder="What do you want to play?"/>
+                            <input 
+                            type="text"
+                            id="searchInput"
+                            placeholder="What do you want to play?"
+                            oninput="filterSongs()" />
                             <div class="browse">
                                 <i class="fa-solid fa-window-restore"></i>
                                 <span>Browse</span>
                                 <div class="ctr">
-                                    <span>Ctrl+K</span>
+                                            <span>Ctrl+K</span>
                                 </div>
                             </div>
                         </form>
@@ -1230,7 +1235,7 @@ header
                         <h5>Show all</h5>
                     </div>
                     <div class="music-list">
-                        <div class="music-album">
+                        <div class="music-album" data-title="ilahi">
                             <a href="#"><img src="ilahi.jpeg"/></a>
                             <div class="img-content">
                                 <h4><a href="#">Ilahi</a></h4>
@@ -1240,7 +1245,7 @@ header
                                 <i class="fa-solid fa-play"></i>
                             </div>
                         </div>
-                        <div class="music-album">
+                        <div class="music-album" data-title="Shape of You">
                             <a href="#"><img src="shapeofyou.jpeg"/></a>
                             <div class="img-content">
                                 <h4><a href="#">Shape of You</a></h4>
@@ -1250,7 +1255,7 @@ header
                                 <i class="fa-solid fa-play"></i>
                             </div>
                         </div>
-                        <div class="music-album">
+                        <div class="music-album" data-title="Raanjhan">
                             <a href="#"><img src="raanjhan.jpeg"/></a>
                             <div class="img-content">
                                 <h4><a href="#">Raanjhan (From "Do Patti")</a></h4>
@@ -1853,5 +1858,14 @@ header
                     resultBox.innerHTML = "<p>Please select a mood first 🎧</p>";
                   }
                 }
+                function filterSongs() {
+                    const input = document.getElementById("searchInput").value.toLowerCase();
+                    const songs = document.querySelectorAll('.music-album');
+                
+                    songs.forEach(song => {
+                      const title = song.getAttribute('data-title').toLowerCase();
+                      song.style.display = title.includes(input) ? "block" : "none";
+                    });
+                  }
               </script>
 </html>
